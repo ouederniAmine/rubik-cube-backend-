@@ -666,7 +666,7 @@ int cross_solve_moves(int cord,int or,int dest,int edges_solved){
             //printf("THE MOVE IS %c\n",move[0]);
             while(cord!=dest){
                 do_move(move[0]);
-         //       printf("%c",move[0]);
+                // printf("%c",move[0]);
                 update();
                 cord=find_edge(edge[0],edge[1]);
             }
@@ -687,7 +687,7 @@ int cross_solve_moves(int cord,int or,int dest,int edges_solved){
             while (cord>3)
             {
                 do_move(m);
-                printf("%c",m);
+                //printf("%c",m);
                 update();
                 cord=find_edge(edge[0],edge[1]);
             }
@@ -1065,7 +1065,7 @@ int oll(){
 //pll for coners
 int pll_corners(){
     if (cube[1][0]==cube[1][2] && cube[4][2]==cube[4][8] && cube[2][6]==cube[2][8] && cube[3][0]==cube[3][6]){
-        while(cube[1][1]!='r'){
+        while(cube[1][0]!='r'){
         moves("U");
         }
         return 0;
@@ -1085,7 +1085,7 @@ int pll_corners(){
     if (!(cube[1][0]==cube[1][2] && cube[4][2]==cube[4][8] && cube[2][6]==cube[2][8] && cube[3][0]==cube[3][6])){
         return -1;
     }
-    while(cube[1][1]!='r'){
+    while(cube[1][0]!='r'){
         moves("U");
     }
 }
@@ -1104,7 +1104,7 @@ int pll_edges(){
         z=1;
     }
     //H perm
-    if(cube[1][1]==cube[2][5] && cube[4][5]==cube[3][0]){
+    if(cube[1][1]==cube[2][6] && cube[4][5]==cube[3][0] && cube[3][3]==cube[4][2] && cube[2][7]==cube[1][0]){
         moves("RRUURRUURRURRUURRUURRu");
     }
     //Z perm
@@ -1129,7 +1129,6 @@ int pll_edges(){
 int pll(){
     pll_corners();
     //printf("\n\npll corners done\n\n");
-    printf("\n");
     verif=0;
     int ver=pll_edges();
     if (ver==-1){
