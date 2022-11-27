@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
-const PORT = 3001;
+const PORT = process.env.PORT|| 3001;
 const app = express();
 
 app.use(express.json());
