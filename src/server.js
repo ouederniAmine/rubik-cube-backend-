@@ -27,6 +27,10 @@ app.post("/cubePieces", (req, res) => {
   );
 });
 
+// get endpoint hello server
+app.get("/", (req, res) => {
+  res.send("Hello Server");
+});
 app.post("/CubeSolutions", (req, res) => {
   exec("gcc cube.c", (error, stdout, stderr) => {
     if (error) {
