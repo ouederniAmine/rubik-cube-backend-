@@ -1156,7 +1156,7 @@ int main() {
     }
     sprintf(solution, "");
     if(verify()==-1){
-        printf(" \n cube not verified \n");
+        printf("INVALID CUBE INPUT");
         return -1;
     }
     solve_cross();
