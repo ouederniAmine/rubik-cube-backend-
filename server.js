@@ -12,16 +12,11 @@ const app = express();
 
 app.use(express.json());
 const corsOptions ={
-  origin:false, 
+  origin:'http://localhost:3000', 
   credentials:true,          //access-control-allow-credentials:true
   optionSuccessStatus:200,
 }
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // or specify your domain i.e. https://localhost.com
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-  }); 
-
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // to support JSON-encoded bodies
@@ -47,15 +42,27 @@ res.setHeader("Access-Control-Allow-Headers", "content-type");
   res.send("Hello Server");
 });
 app.post("/CubeSolutions", (req, res) => {
-  c.runFile('./src/cube.c', { stdin:'3\n2 '}, (err, result) => {
-    if(err){
-        console.log(err);
+  exec("gcc cube.c", (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
     }
-    else{
-        res.send(result.stdout);
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      return;
     }
-});
- 
+
+    const child = spawn("./a.exe"); //where a is the exe file generated on compiling the code.
+    child.stdin.write(req.body.cube);
+    child.stdin.end();
+    child.stdout.on("data", (data) => {
+      res.setHeader("Access-Control-Allow-Origin", "*")
+res.setHeader("Access-Control-Allow-Credentials", "true");
+res.setHeader("Access-Control-Max-Age", "1800");
+res.setHeader("Access-Control-Allow-Headers", "content-type");
+      res.send(data.toString());
+    });
+  });
 });
 
 app.listen(PORT, () => {
