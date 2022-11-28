@@ -20,7 +20,8 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // or specify your domain i.e. https://localhost.com
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
-  }); I
+  }); 
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // to support JSON-encoded bodies
