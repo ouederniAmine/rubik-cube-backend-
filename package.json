@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/server.js",
+    "dev": "gcc -v && nodemon ./src/server.js",
     "stop": "taskkill -F -IM node.exe"
   },
   "author": "",
