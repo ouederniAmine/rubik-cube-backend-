@@ -12,11 +12,11 @@ const app = express();
 
 app.use(express.json());
 const corsOptions ={
-  origin:'http://localhost:3000', 
+  origin:'https://rubik-cube-backend.onrender.com', 
   credentials:true,          //access-control-allow-credentials:true
   optionSuccessStatus:200,
 }
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // to support JSON-encoded bodies
