@@ -12,8 +12,8 @@ const app = express();
 app.use(express.json());
 const corsOptions ={
   origin:'http://localhost:3000', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200
+  credentials:true,          //access-control-allow-credentials:true
+  optionSuccessStatus:200,
 }
 app.use(cors(corsOptions));
 app.use(cookieParser());
@@ -34,6 +34,10 @@ app.post("/cubePieces", (req, res) => {
 
 // get endpoint hello server
 app.get("/", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*")
+res.setHeader("Access-Control-Allow-Credentials", "true");
+res.setHeader("Access-Control-Max-Age", "1800");
+res.setHeader("Access-Control-Allow-Headers", "content-type");
   res.send("Hello Server");
 });
 app.post("/CubeSolutions", (req, res) => {
@@ -51,6 +55,10 @@ app.post("/CubeSolutions", (req, res) => {
     child.stdin.write(req.body.cube);
     child.stdin.end();
     child.stdout.on("data", (data) => {
+      res.setHeader("Access-Control-Allow-Origin", "*")
+res.setHeader("Access-Control-Allow-Credentials", "true");
+res.setHeader("Access-Control-Max-Age", "1800");
+res.setHeader("Access-Control-Allow-Headers", "content-type");
       res.send(data.toString());
     });
   });
