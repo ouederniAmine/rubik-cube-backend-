@@ -43,24 +43,18 @@ res.setHeader("Access-Control-Allow-Headers", "content-type");
 });
 app.post("/CubeSolutions", (req, res) => {
   
-    c.runFile('./cube.c', { stdin:'3\n2 '}, (err, result) => {
-      if(err){
-          console.log(err);
-      }
-      else{
-        res.setHeader("Access-Control-Allow-Origin", "*")
+
+    const child = spawn("./a.out"); //where a is the exe file generated on compiling the code.
+    child.stdin.write(req.body.cube);
+    child.stdin.end();
+    child.stdout.on("data", (data) => {
+      res.setHeader("Access-Control-Allow-Origin", "*")
 res.setHeader("Access-Control-Allow-Credentials", "true");
 res.setHeader("Access-Control-Max-Age", "1800");
 res.setHeader("Access-Control-Allow-Headers", "content-type");
-      res.send(result.stdout);
-         
-      }
+      res.send(data.toString());
+    });
   });
-    
-      
-  
-  });
-
 app.listen(PORT, () => {
   console.log("running server on port " + PORT);
 });
